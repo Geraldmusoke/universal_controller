@@ -1,0 +1,12 @@
+Generate p.12 keystore
+
+keytool -genkeypair -alias hotpot -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore.p12 -validity 365 -storepass changeit
+
+If you got a certificate from a CA (e.g. .crt, .key), combine them into a .p12 like this:
+
+openssl pkcs12 -export \
+  -in your_certificate.crt \
+  -inkey your_private.key \
+  -out keystore.p12 \
+  -name "hotpot" \
+  -password pass:changeit

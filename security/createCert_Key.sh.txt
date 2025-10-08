@@ -1,0 +1,23 @@
+#!/bin/bash
+# Generate a private key:  You can also generate with stronger algorithms like EC (Elliptic Curve).
+openssl genrsa -out server.key 2048
+
+# Generate a certificate signing request (CSR) OR
+# 	Send server.csr to a Certificate Authority (CA).
+# 	They’ll give you back:
+# 	Your certificate (server.crt / .pem)
+#	Possibly intermediate CA certs.
+openssl req -new -key server.key -out server.csr \
+  -subj "/C=UG/ST=Central/L=Kampala/O=TestOrg/OU=IT/CN=localhost"
+
+# Generate a self-signed certificate valid for 365 days
+openssl x509 -req -in server.csr -signkey server.key -out server.crt -days 365
+
+# Combine key + certificate into one PEM file
+cat server.key server.crt > server.pem
+
+# Show certificate details
+openssl x509 -in server.crt -text -noout
+
+# Combine key + certificate into .p12 (Tested on Windows)
+openssl pkcs12 -export -in your_certificate.crt -inkey your_private.key -out keystore.p12 -name "hotpot" -password pass:changeit

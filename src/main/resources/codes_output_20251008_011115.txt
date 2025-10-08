@@ -1,0 +1,5 @@
+code,description
+200,Success
+404,Not Found
+500,Server Error
+1102,Trigger CSV Processing
