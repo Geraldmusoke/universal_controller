@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://example.com/hotpot"
+           xmlns:tns="http://example.com/hotpot"
+           elementFormDefault="qualified">
+
+    <xs:element name="queryDataBalanceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="msisdn" type="xs:string"/>
+                <xs:element name="sessionId" type="xs:string"/>
+                <xs:element name="channel" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="queryDataBalanceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="msisdn" type="xs:string"/>
+                <xs:element name="sessionId" type="xs:string"/>
+                <xs:element name="channel" type="xs:string"/>
+                <xs:element name="datacenterLocation" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

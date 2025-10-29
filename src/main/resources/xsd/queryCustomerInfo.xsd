@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:api="http://cps.huawei.com/synccpsinterface/api_requestmgr"
+        xmlns:res="http://cps.huawei.com/synccpsinterface/result"
+        targetNamespace="http://cps.huawei.com/synccpsinterface/api_requestmgr"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+
+    <!-- SOAP Envelope -->
+    <xs:element name="Envelope" type="soapenv:Envelope"/>
+
+    <xs:complexType name="Envelope">
+        <xs:sequence>
+            <xs:element name="Body" type="soapenv:Body"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Body">
+        <xs:sequence>
+            <xs:element ref="api:Result" minOccurs="0"/>
+            <xs:element ref="api:applyTransactionResponse" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Original Huawei CPS Result -->
+    <xs:element name="Result" type="api:ResultType"/>
+
+    <xs:complexType name="ResultType">
+        <xs:sequence>
+            <xs:element name="Header" type="res:HeaderType"/>
+            <xs:element name="Body" type="res:BodyType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- applyTransactionResponse (new element) -->
+    <xs:element name="applyTransactionResponse" type="api:ApplyTransactionResponseType"/>
+
+    <xs:complexType name="ApplyTransactionResponseType">
+        <xs:sequence>
+            <xs:element name="TransactionID" type="xs:string"/>
+            <xs:element name="ResponseCode" type="xs:string"/>
+            <xs:element name="ResponseDesc" type="xs:string"/>
+            <xs:element name="datacenterLocation" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- res namespace elements -->
+    <xs:complexType name="HeaderType">
+        <xs:sequence>
+            <xs:element name="Version" type="xs:string"/>
+            <xs:element name="OriginatorConversationID" type="xs:string"/>
+            <xs:element name="ConversationID" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BodyType">
+        <xs:sequence>
+            <xs:element name="ResultType" type="xs:string"/>
+            <xs:element name="ResultCode" type="xs:string"/>
+            <xs:element name="ResultDesc" type="xs:string"/>
+            <xs:element name="QueryCustomerInfoResult" type="res:QueryCustomerInfoResultType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="QueryCustomerInfoResultType">
+        <xs:sequence>
+            <xs:element name="BOCompletedTime" type="xs:string"/>
+            <xs:element name="CustomerBasicData" type="res:CustomerBasicDataType"/>
+            <xs:element name="SegmentData" type="res:SegmentDataType"/>
+            <xs:element name="CredentialData" type="res:CredentialDataType"/>
+            <xs:element name="SIMDeviceData" type="res:SIMDeviceDataType"/>
+            <xs:element name="C2OLinkData" type="res:C2OLinkDataType"/>
+            <xs:element name="GroupListData" type="res:GroupListDataType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- CustomerBasicData -->
+    <xs:complexType name="CustomerBasicDataType">
+        <xs:sequence>
+            <xs:element name="CustomerType" type="xs:string"/>
+            <xs:element name="IdentityStatus" type="xs:string"/>
+            <xs:element name="RegistrationDate" type="xs:string"/>
+            <xs:element name="RegisteredBy" type="xs:string"/>
+            <xs:element name="PrimaryMSISDN" type="xs:string"/>
+            <xs:element name="LanguageCode" type="xs:string"/>
+            <xs:element name="TrustLevel" type="xs:string"/>
+            <xs:element name="TrustLevelName" type="xs:string"/>
+            <xs:element name="RuleProfileID" type="xs:string"/>
+            <xs:element name="RuleProfileName" type="xs:string"/>
+            <xs:element name="ChargeProfileID" type="xs:string"/>
+            <xs:element name="ChargeProfileName" type="xs:string"/>
+            <xs:element name="RegistrationChannel" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- SegmentData -->
+    <xs:complexType name="SegmentDataType">
+        <xs:sequence>
+            <xs:element name="SegmentItem" type="res:SegmentItemType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SegmentItemType">
+        <xs:sequence>
+            <xs:element name="SegmentType" type="xs:string"/>
+            <xs:element name="SegmentName" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- CredentialData -->
+    <xs:complexType name="CredentialDataType">
+        <xs:sequence>
+            <xs:element name="CredentialItem" type="res:CredentialItemType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CredentialItemType">
+        <xs:sequence>
+            <xs:element name="CredentialType" type="xs:string"/>
+            <xs:element name="CredentialStatus" type="xs:string"/>
+            <xs:element name="ExpirationTime" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- SIMDeviceData -->
+    <xs:complexType name="SIMDeviceDataType">
+        <xs:sequence>
+            <xs:element name="SIMDeviceItem" type="res:SIMDeviceItemType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SIMDeviceItemType">
+        <xs:sequence>
+            <xs:element name="MSISDN" type="xs:string"/>
+            <xs:element name="ICCID" type="xs:string" minOccurs="0"/>
+            <xs:element name="SIMSize" type="xs:string" minOccurs="0"/>
+            <xs:element name="DeviceStatus" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- C2OLinkData -->
+    <xs:complexType name="C2OLinkDataType">
+        <xs:sequence>
+            <xs:element name="C2OLinkItem" type="res:C2OLinkItemType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="C2OLinkItemType">
+        <xs:sequence>
+            <xs:element name="OrgShortCode" type="xs:string"/>
+            <xs:element name="OrganizationName" type="xs:string"/>
+            <xs:element name="C2OLinkNumber" type="xs:string"/>
+            <xs:element name="MSISDN" type="xs:string"/>
+            <xs:element name="CreationTime" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- GroupListData -->
+    <xs:complexType name="GroupListDataType">
+        <xs:sequence>
+            <xs:element name="GroupItem" type="res:GroupItemType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GroupItemType">
+        <xs:sequence>
+            <xs:element name="GroupCode" type="xs:string"/>
+            <xs:element name="GroupName" type="xs:string"/>
+            <xs:element name="GroupMemberRoleList" type="res:GroupMemberRoleListType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GroupMemberRoleListType">
+        <xs:sequence>
+            <xs:element name="GroupMemberRole" type="res:GroupMemberRoleType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GroupMemberRoleType">
+        <xs:sequence>
+            <xs:element name="RoleID" type="xs:string"/>
+            <xs:element name="RoleName" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

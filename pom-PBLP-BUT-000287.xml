@@ -82,6 +82,7 @@
 		</dependency>
 
 
+
 	</dependencies>
 
 	<build>
@@ -91,29 +92,21 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- This plugin generates classes from xsd files-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>2.5.0</version>
 				<executions>
 					<execution>
-						<id>xjc</id>
-						<goals>
-							<goal>xjc</goal>
-						</goals>
+						<goals><goal>xjc</goal></goals>
 						<configuration>
-							<sources>
-								<source>${project.basedir}/src/main/resources/xsd</source>
-							</sources>
-							<packageName>com.example.hotpot.soap</packageName>
+							<sources>${project.basedir}/src/main/resources/wsdl</sources>
 							<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
 							<clearOutputDir>false</clearOutputDir>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 
